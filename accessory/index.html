@@ -38,17 +38,23 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="2">Total Price:</td>
-                <td id="totalPrice">0</td>
+            <td colspan="2">Total Price + VAT:</td>
+            <td id="totalPrice+vat">0</td>
             </tr>
         </tfoot>
         <tfoot>
             <tr>
-                <td colspan="2">VatAmount:</td>
-                <td id="vatAmount">0</td>
+                <td colspan="2">Total Price:</td>
+                <td id="totalPrice">0</td>
+                </tr>
+        </tfoot>
+        <tfoot>
+            <tr>
+            <td colspan="2">VAT:</td>
+            <td id="vatAmount">0</td>
             </tr>
         </tfoot>
-    </table>
+        </table>
  
     <script>
         var totalPrice = 0;
@@ -78,7 +84,8 @@
 
             // Update the total price
             totalPrice += productPrice;
-            document.getElementById("totalPrice").innerHTML = totalPrice + vatAmount;
+            document.getElementById("totalPrice").innerHTML = totalPrice;
+            document.getElementById("totalPrice+vat").innerHTML = totalPrice + vatAmount;
             document.getElementById("vatAmount").innerHTML = vatAmount.toFixed(2);
         } 
     </script>
