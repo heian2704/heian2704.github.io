@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <title>Car Accessories</title>
+    <link rel="stylesheet" href="/css/global.css">
+</head>
+</head>
+ 
+<body>
+    <h1>Car Accessories</h1>
+ 
+    <form id="accessoryForm">
+        <label for="accessory">Select an accessory:</label>
+        <select id="accessory">
+            <option value="100">Car Cover</option>
+            <option value="200">Floor Mats</option>
+            <option value="30">Seat Covers</option>
+            <option value="40">Phone Holder</option>
+        </select>
+ <br>
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" min="1" value="1">
+ <br>
+        <button type="button" onclick="addToProductList()">Add</button>
+    </form>
+ 
+    <table >
+        <thead>
+            <tr>
+                <th>Accessory</th>
+                <th>Amount</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody id="productList">
+            <!-- Product list items will be added here dynamically -->
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">Total Price:</td>
+                <td id="totalPrice">0</td>
+            </tr>
+        </tfoot>
+        <tfoot>
+            <tr>
+                <td colspan="2">VatAmount:</td>
+                <td id="vatAmount">0</td>
+            </tr>
+        </tfoot>
+    </table>
+ 
+    <script>
+        var totalPrice = 0;
+        var vatAmount = 0;
+
+        function addToProductList() {
+            var accessorySelect = document.getElementById("accessory");
+            var accessoryOption = accessorySelect.options[accessorySelect.selectedIndex];
+            var accessoryName = accessoryOption.text;
+            var accessoryPrice = accessoryOption.value;
+            var amountInput = document.getElementById("amount");
+            var amount = amountInput.value;
+
+            var productList = document.getElementById("productList");
+            var newRow = productList.insertRow(-1);
+            var accessoryCell = newRow.insertCell(0);
+            var amountCell = newRow.insertCell(1);
+            var priceCell = newRow.insertCell(2);
+
+            accessoryCell.innerHTML = accessoryName;
+            amountCell.innerHTML = amount;
+            var productPrice = accessoryPrice * amount;
+            priceCell.innerHTML = productPrice;
+
+            // Calculate VAT amount
+            vatAmount += productPrice * 0.07;
+
+            // Update the total price
+            totalPrice += productPrice;
+            document.getElementById("totalPrice").innerHTML = totalPrice + vatAmount;
+            document.getElementById("vatAmount").innerHTML = vatAmount.toFixed(2);
+        } 
+    </script>
+ 
+</body>
+
+</html>
