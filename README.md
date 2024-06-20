@@ -1,1 +1,1 @@
-** This is my git hub page for Web App Dev Class **
+# **This is my Git Hub page by Hein Thant for Web App Dev Class**
