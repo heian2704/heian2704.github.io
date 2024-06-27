@@ -4,6 +4,8 @@
 <head>
     <title>Car Accessories</title>
     <link rel="stylesheet" href="/css/global.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script> 
+
 </head>
 </head>
  
@@ -39,7 +41,7 @@
         <tfoot>
             <tr>
             <td colspan="2">Total Price + VAT:</td>
-            <td id="totalPrice+vat">0</td>
+            <td id="netprice">0</td>
             </tr>
         </tfoot>
         <tfoot>
@@ -60,34 +62,45 @@
         var totalPrice = 0;
         var vatAmount = 0;
 
-        function addToProductList() {
-            var accessorySelect = document.getElementById("accessory");
-            var accessoryOption = accessorySelect.options[accessorySelect.selectedIndex];
-            var accessoryName = accessoryOption.text;
-            var accessoryPrice = accessoryOption.value;
-            var amountInput = document.getElementById("amount");
-            var amount = amountInput.value;
+        $(document).ready(function() {
+            function addToProductList() {
+                var accessorySelect = $("#accessory");
+                var accessoryOption = accessorySelect.find(":selected");
+                var accessoryName = accessoryOption.text();
+                var accessoryPrice = accessoryOption.val();
+                var amountInput = $("#amount");
+                var amount = amountInput.val();
 
-            var productList = document.getElementById("productList");
-            var newRow = productList.insertRow(-1);
-            var accessoryCell = newRow.insertCell(0);
-            var amountCell = newRow.insertCell(1);
-            var priceCell = newRow.insertCell(2);
+                var productList = $("#productList");
+                var newRow = $("<tr></tr>");
+                var accessoryCell = $("<td></td>").text(accessoryName);
+                var amountCell = $("<td></td>").text(amount);
+                var priceCell = $("<td></td>");
 
-            accessoryCell.innerHTML = accessoryName;
-            amountCell.innerHTML = amount;
-            var productPrice = accessoryPrice * amount;
-            priceCell.innerHTML = productPrice;
+                accessoryCell.appendTo(newRow);
+                amountCell.appendTo(newRow);
+                newRow.append(priceCell);
 
-            // Calculate VAT amount
-            vatAmount += productPrice * 0.07;
+                productList.append(newRow);
 
-            // Update the total price
-            totalPrice += productPrice;
-            document.getElementById("totalPrice").innerHTML = totalPrice;
-            document.getElementById("totalPrice+vat").innerHTML = totalPrice + vatAmount;
-            document.getElementById("vatAmount").innerHTML = vatAmount.toFixed(2);
-        } 
+                var productPrice = accessoryPrice * amount;
+                priceCell.text(productPrice);
+
+                // Calculate VAT amount
+                vatAmount += productPrice * 0.07;
+
+                // Update the total price
+                totalPrice += productPrice;
+
+                netprice = totalPrice + vatAmount;
+
+                $("#netprice").text((netprice).toFixed(2));
+                $("#totalPrice").text(totalPrice);
+                $("#vatAmount").text(vatAmount.toFixed(2));
+            }
+
+            $("#accessoryForm").on("click", "button", addToProductList);
+        });
     </script>
  
 </body>
