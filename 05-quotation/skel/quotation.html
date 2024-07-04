@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+    <title>Sample Quotation</title>
+    <meta name="description" content="Company quotation">
+    <meta name="author" content="SitePoint">
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <b>VMS HACKER
+        <span style="float:right;font-size:30px;">
+            QUOTATION
+        </span>
+    </b>
+
+    <p>
+        Bangsaothong
+        <br>Samutrprakarn
+        <span style="float:right;">
+            <img src="https://admissions.au.edu/wp-content/uploads/2019/08/science.jpg"
+                style="width:100px;height:100px;">
+        </span>
+        <br>THAILAND
+
+    </p>
+    <br>
+    <p>30000</p>
+    <p id="bottom-line">
+        Phone: 12345678
+        <span class="tab">Mobile: 12345678</span>
+        <span id="quotationDate" style="float: right;">
+            2010/7/27
+        </span>
+    </p>
+
+
+
+    <p class="thick" style="text-align: center;">
+        Currency Dollar
+        <span class="tab">No.:A000000</span>
+        <span style="float:left;">
+            Page No. 2
+        </span>
+    </p>
+
+    <p style="text-align: center;">
+        Ship to:
+        <span class="tab">Sample customer name 001</span>
+        <span class="tab"></span>
+        <span class="tab"></span>
+        <span class="tab"></span>
+        <span style="float:left;">
+            To:
+            <span class="tab">Sample customer name 001</span>
+        </span>
+    </p>
+    <p style="text-align: center;">
+        Ship to address line1
+        <span style="float:left;">
+            <span class="tab"></span>   Sample address line1</span>
+
+        <br>
+        Ship to address line2
+        <span style="float:left;">
+            <span class="tab"></span>   Sample address line2</span>
+
+        <br>
+        Ship to address line3
+        <span style="float:left;">
+            <span class="tab"></span>   Sample address line3</span>
+
+    </p>
+    <table class="center">
+        <thead>
+            <tr>
+                <th>Salesperson</th>
+                <th>Your P.O. No.</th>
+                <th>Date Shipped</th>
+                <th>Shipped Via</th>
+                <th>F.O.B Point</th>
+                <th>Terms</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="bottom-line">
+                <td class="data">Administrator</td>
+                <td class="data">Sample PO#</td>
+                <td class="data">2011/3/18</td>
+                <td class="data">Courier Services</td>
+                <td class="data">U.S.A</td>
+                <td class="data">2 Weeks</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+
+    <table class="center" id="quotationTable">
+        <thead>
+            <tr>
+                <th>Quantity</th>
+                <th>Description</th>
+                <th>Unit Price</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            <tr id="sub-total">
+                <td colspan="3" class="data2 r colo"> Subtotal</td>
+                <td colspan="1" class="data2 r" id="subTotal">---</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="data2 r colo"> Sales Tax</td>
+                <td colspan="1" class="data2 r" id="bottom-line">430.00</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="data2 r colo"> Shipping &amp; Handling</td>
+                <td colspan="1" class="data2 r" id="bottom-line">0.00</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="data2 r colo"> Total Due</td>
+                <td colspan="1" class="data2 r" id="bottom-line">4,730.00</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+
+    <p class="cen">
+        <b>Make all checks payable to:</b>
+        <br><i>Your company name here</i>
+        <br><b>If you have any question concerning this invoices, call:</b>
+        <br>
+        <br><b>THANK YOU FOR YOUR BUSINESS</b>
+    </p>
+
+
+    <footer>WHO ARE YOU</footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+
+
+        var data = [
+            { quantity: 2, description: 'Stock Item Example 0001', unitPrice: 1000 },
+            { quantity: 3, description: 'Stock Item Example 0002', unitPrice: 2000 },
+            { quantity: 1, description: 'Service Charge Invoicing Item 001', unitPrice: 1000 },
+            {
+                quantity: 1,
+                description: 'Service Charge Invoicing Item 002',
+                details: ['Additional line 1 for this item', 'Additional line 2 for this item'],
+                unitPrice: 200
+            }
+        ]
+        $(document).ready(function () {
+            var d = new Date()
+            $('#quotationDate').html(d.toDateString())
+
+
+            var subTotal = 0
+            data.forEach( (e) => {
+                subTotal = subTotal + (e.unitPrice * e.quantity)
+            })
+console.log('subTotal',subTotal)
+            $("#subTotal").html(""+subTotal)
+
+            var dataRows = data.map((e) => {
+                let amount = e.quantity * e.unitPrice
+                return `<tr>
+                <td class="data">${e.quantity}</td>
+                <td class="data">${e.description}</td>
+                <td class="data">${e.unitPrice}</td>
+                <td class="data">${amount}</td>
+            </tr>`;
+            })
+
+            dataRows.forEach((r) => {
+                $('#quotationTable tbody').before(r)
+            })
+        })
+    </script>
+</body>
+
+</html>

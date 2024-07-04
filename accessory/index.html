@@ -1,38 +1,61 @@
 <!DOCTYPE html>
 <html>
- 
-<head>
-    <title>Car Accessories</title>
-    <link rel="stylesheet" href="/css/global.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script> 
 
+<head>
+    <title>Car Accessories </title>
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
-</head>
- 
+
 <body>
-    <h1>Car Accessories</h1>
- 
-    <form id="accessoryForm">
-        <label for="accessory">Select an accessory:</label>
-        <select id="accessory">
-            <option value="100">Car Cover</option>
-            <option value="200">Floor Mats</option>
-            <option value="30">Seat Covers</option>
-            <option value="40">Phone Holder</option>
-        </select>
- <br>
-        <label for="amount">Amount:</label>
-        <input type="number" id="amount" min="1" value="1">
- <br>
-        <button type="button" onclick="addToProductList()">Add</button>
-    </form>
- 
-    <table >
+    <div class="container">
+        <div class="jumbotron text-center">
+            <h1 class="display-4">Welcome to the Car Accessories Store!</h1>
+            <p class="lead">Your one-stop shop for all your car accessory needs.</p>
+        </div>
+    <div class="container marketing">
+        <h1> Products </h1>
+        <!-- Four columns of text below the carousel -->
+        <div class="row">
+            <div class="col-lg-3">
+                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                <h2>Car Cover</h2>
+                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+            </div><!-- /.col-lg-3 -->
+            <div class="col-lg-3">
+                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                <h2>Floor mats</h2>
+                <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p> 
+            </div><!-- /.col-lg-3 -->
+            <div class="col-lg-3">
+                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                <h2>Mary</h2>
+                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>      
+            </div><!-- /.col-lg-3 -->
+            <div class="col-lg-3">
+                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                <h2>Brown</h2>
+                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+            </div><!-- /.col-lg-3 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+    
+    
+    <h1 style="font-size: 37px;">
+        Car Accessories 
+        <button type="b utton" class="btn btn-primary" data-toggle="modal" data-target="#addProductModal">Add Product</button>
+    </h1>
+
+    <table class="table table-bordered table-hover">    
         <thead>
             <tr>
                 <th>Accessory</th>
-                <th>Amount</th>
+                <th>Amount</th> 
                 <th>Price</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody id="productList">
@@ -40,69 +63,137 @@
         </tbody>
         <tfoot>
             <tr>
-            <td colspan="2">Total Price + VAT:</td>
-            <td id="netprice">0</td>
-            </tr>
-        </tfoot>
-        <tfoot>
-            <tr>
                 <td colspan="2">Total Price:</td>
-                <td id="totalPrice">0</td>
-                </tr>
+                <td id="netprice">0</td>
+            </tr>
         </tfoot>
         <tfoot>
             <tr>
-            <td colspan="2">VAT:</td>
-            <td id="vatAmount">0</td>
+                <td colspan="2">Product Price:</td>
+                <td id="totalPrice">0</td>
             </tr>
         </tfoot>
-        </table>
- 
+        <tfoot>
+            <tr>
+                <td colspan="2">VAT:</td>
+                <td id="vatAmount">0</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <!-- Add Product Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Add Product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label for="accessorySelect">Select an accessory:</label>
+                        <select id="accessorySelect" class="form-control">
+                            <option value="100">Car Cover</option>
+                            <option value="200">Floor Mats</option>
+                            <option value="30">Seat Covers</option>
+                            <option value="40">Phone Holder</option>
+                        </select>
+                        <br>
+                        <label for="amountInput">Amount:</label>
+                        <input type="number" id="amountInput" min="1" value="1" class="form-control">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="addProductBtn">Add Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="float: right; margin-top: 3%;">
+        <h2>Contact Us</h2>
+        <ul class="list-unstyled">
+            <li><strong>Phone:</strong> +66 234 567 890</li>
+            <li><strong>Email:</strong> support@caraccessories.com</li>
+            <li><strong>Address:</strong> 123 Car Street, Auto City, ABAC</li>
+    </ul>
+    </div>
+
     <script>
-        var totalPrice = 0;
-        var vatAmount = 0;
+        var quotationData = [];
 
         $(document).ready(function() {
-            function addToProductList() {
-                var accessorySelect = $("#accessory");
-                var accessoryOption = accessorySelect.find(":selected");
-                var accessoryName = accessoryOption.text();
-                var accessoryPrice = accessoryOption.val();
-                var amountInput = $("#amount");
-                var amount = amountInput.val();
-
-                var productList = $("#productList");
-                var newRow = $("<tr></tr>");
-                var accessoryCell = $("<td></td>").text(accessoryName);
-                var amountCell = $("<td></td>").text(amount);
-                var priceCell = $("<td></td>");
-
-                accessoryCell.appendTo(newRow);
-                amountCell.appendTo(newRow);
-                newRow.append(priceCell);
-
-                productList.append(newRow);
-
-                var productPrice = accessoryPrice * amount;
-                priceCell.text(productPrice);
-
-                // Calculate VAT amount
-                vatAmount += productPrice * 0.07;
-
-                // Update the total price
-                totalPrice += productPrice;
-
-                netprice = totalPrice + vatAmount;
-
-                $("#netprice").text((netprice).toFixed(2));
-                $("#totalPrice").text(totalPrice);
-                $("#vatAmount").text(vatAmount.toFixed(2));
-            }
-
-            $("#accessoryForm").on("click", "button", addToProductList);
+        $('#addProductBtn').on('click', function() {
+            addProduct();
+            $('#addProductModal').modal('hide');
         });
+
+        $("#productList").on("click", ".delete-btn", function() {
+            deleteProduct($(this).closest("tr"));
+        });
+        });
+
+        function addProduct() {
+        var accessorySelect = $("#accessorySelect");
+        var accessoryOption = accessorySelect.find(":selected");
+        var accessoryName = accessoryOption.text();
+        var accessoryPrice = accessoryOption.val();
+        var amountInput = $("#amountInput");
+        var amount = amountInput.val();
+
+        var product = {
+            description: accessoryName,
+            quantity: parseFloat(amount),
+            unitPrice: parseFloat(accessoryPrice)
+        };
+
+        quotationData.push(product);
+        renderTable();
+        }
+
+        function deleteProduct(row) {
+        var index = row.data("index");
+        quotationData.splice(index, 1);
+        renderTable();
+        row.remove();
+        }
+
+        function renderTable() {
+        var subTotal = 0;
+        var vatAmount = 0;
+        var totalPrice = 0;
+
+        $("#productList").empty();
+
+        quotationData.forEach((product, index) => {
+            var amount = product.quantity * product.unitPrice;
+            subTotal += amount;
+            vatAmount += amount * 0.07;
+            totalPrice = subTotal + vatAmount;
+
+            var newRow = $("<tr></tr>");
+            newRow.data("index", index);
+            var accessoryCell = $("<td></td>").text(product.description);
+            var amountCell = $("<td></td>").text(product.quantity);
+            var priceCell = $("<td></td>").text(product.unitPrice.toFixed(2));
+            var actionCell = $("<td></td>").html("<button class='delete-btn'>Delete</button>");
+
+            accessoryCell.appendTo(newRow);
+            amountCell.appendTo(newRow);
+            newRow.append(priceCell);
+            newRow.append(actionCell);
+
+            $("#productList").append(newRow);
+        });
+
+        $("#netprice").text(totalPrice.toFixed(2));
+        $("#totalPrice").text(subTotal.toFixed(2));
+        $("#vatAmount").text(vatAmount.toFixed(2));
+        }
     </script>
- 
+
 </body>
 
 </html>
