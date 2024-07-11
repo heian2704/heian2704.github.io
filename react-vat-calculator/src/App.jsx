@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'eact';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
@@ -7,12 +7,15 @@ function App() {
   const [price, setPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [vat, setVat] = useState(0);
+  const [grossPrice, setGrossPrice] = useState(0);
 
   function handlePriceChange(e) {
     let p = e.target.value;
+    setPrice(p);
     let discountedPrice = p - discount;
     let v = discountedPrice * 0.07;
     setVat(v.toFixed(2));
+    setGrossPrice((discountedPrice + v).toFixed(2));
   }
 
   function handleDiscountChange(e) {
@@ -22,6 +25,7 @@ function App() {
     let discountedPrice = p - d;
     let v = discountedPrice * 0.07;
     setVat(v.toFixed(2));
+    setGrossPrice((discountedPrice + v).toFixed(2));
   }
 
   return (
@@ -32,7 +36,7 @@ function App() {
         <input
           type="number"
           value={price}
-          onChange={(e) => setPrice(e.target.value)}
+          onChange={handlePriceChange}
           style={{ fontSize: '20pt' }}
         />
         <br />
@@ -45,6 +49,7 @@ function App() {
         />
         <br />
         <p>VAT = {vat}</p>
+        <p>Gross Price = {grossPrice}</p>
       </div>
     </>
   );
