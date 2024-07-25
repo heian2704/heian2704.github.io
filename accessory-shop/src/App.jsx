@@ -15,7 +15,13 @@ function App() {
   const [price, setPrice] = useState(productList[0].price)
 
   const [selectedItems, setSelectedItems] = useState([])
-  
+  const [filteredSelectedItems, setFilteredSelectedItems] = useState([]) 
+
+  const deleteItemByIndex = (index) => { 
+      selectedItems.splice(index, 1) 
+      setSelectedItems([...selectedItems])
+      setFilteredSelectedItems([...selectedItems]) 
+   } 
 
   const handleAdd = (e) => {
     const pid = pRef.current.value
@@ -30,6 +36,7 @@ function App() {
     })
     console.table(selectedItems)
     setSelectedItems([...selectedItems])
+    setFilteredSelectedItems([...selectedItems])
   }
 
   const handleProductChanged = (e) => {
@@ -38,6 +45,24 @@ function App() {
     const p = product.price
     console.log(p)
     setPrice(p)
+  }
+
+  const sortAscending = () => {
+    const sortedData = [...selectedItems].sort((a, b) => a.name.localeCompare(b.name));
+    setSelectedItems(sortedData);
+    setFilteredSelectedItems(sortedData);
+  };
+
+  const sortDescending = () => {
+    const sortedData = [...selectedItems].sort((a, b) => b.name.localeCompare(a.name));
+    setSelectedItems(sortedData);
+    setFilteredSelectedItems(sortedData);
+  };
+
+  const search = (keyword) => {
+    setFilteredSelectedItems([
+      ...selectedItems.filter(item => item.name.toLowerCase().includes(keyword.toLowerCase()))
+    ])
   }
 
   return (
@@ -74,9 +99,10 @@ function App() {
               defaultValue={1} />
           </Col>
         </Row>
-        <Button variant="secondary" onClick={handleAdd}>Add</Button>
+        <Button variant="primary" onClick={handleAdd}>Add</Button>
 
-        <DataTable data={selectedItems} />
+        <DataTable data={filteredSelectedItems} onDelete={deleteItemByIndex} onSearch={search} onSortAscending={sortAscending}
+        onSortDescending={sortDescending} />
       </Container>
     </>
   )
