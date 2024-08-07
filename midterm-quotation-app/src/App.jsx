@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
-import QuotationTable from "./QuotationTable";
+import QuotationTable from "/Users/heian/webCodes/heian2704.github.io/midterm-quotation-app/src/QuotationTable.jsx";
 
 const products = [
   { code: "p001", name: "Product A", price: 100 },

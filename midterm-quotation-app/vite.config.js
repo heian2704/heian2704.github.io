@@ -1,8 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  base: '/midterm-quotation-app/',
+  base: '/midterm-quotation-app/', // Ensure this matches your GitHub Pages path
   plugins: [react()],
 });
