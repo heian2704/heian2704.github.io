@@ -2,7 +2,7 @@
 
 This is the skeleton code for the WAD Midterm. Get the project code using one of these methods:
 1. **Git Clone:** Unfortunately, we have not covered this in the class yet.
-2. **Download:** Download the zip file and extract it.
+2. **Download:** Download the zip file and extract it. Click "Code" and then "Download ZIP".
 
 # Setup
 1. Change directory to the project folder
