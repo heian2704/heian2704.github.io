@@ -3,7 +3,7 @@ import { CiShoppingCart } from "react-icons/ci";
 import { MdClear } from "react-icons/md";
 import { BsFillTrashFill } from "react-icons/bs";
 
-import style from "/Users/heian/webCodes/heian2704.github.io/midterm-quotation-app/src/mystyle.module.css";
+import style from "./mystyle.module.css";
 
 function QuotationTable({ data, clearDataItems, deleteByIndex }) {
   if (!data || data.length === 0) {
