@@ -1,6 +1,7 @@
-import { useState, useRef } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import QuotationTable from "./QuotationTable";
+import { useState, useRef } from "react";
 
 const products = [
   { code: "p001", name: "Product A", price: 100 },
@@ -56,55 +57,61 @@ function App() {
   };
 
   return (
-    <Container>
-      <Row>
-        <Col md={4} style={{ backgroundColor: "#e4e4e4" }}>
-          <Row>
-            <Col>
-              Item
-              <Form.Select ref={itemRef} onChange={productChange}>
-                {products.map((p) => (
-                  <option key={p.code} value={p.code}>
-                    {p.name}
-                  </option>
-                ))}
-              </Form.Select>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Form.Label>Price Per Unit</Form.Label>
-              <Form.Control type="number" value={ppu} readOnly />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Form.Label>Quantity</Form.Label>
-              <Form.Control type="number" ref={qtyRef} defaultValue={1} />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Form.Label>Discount</Form.Label>
-              <Form.Control type="number" ref={discountRef} defaultValue={0} />
-            </Col>
-          </Row>
-          <hr />
-          <div className="d-grid gap-2">
-            <Button variant="primary" onClick={addItem}>
-              Add
-            </Button>
-          </div>
-        </Col>
-        <Col md={8}>
-          <QuotationTable
-            data={dataItems}
-            clearDataItems={clearDataItems}
-            deleteByIndex={deleteByIndex}
-          />
-        </Col>
-      </Row>
-    </Container>
+    <Router basename="/midterm-quotation-app">
+      <Container>
+        <Row>
+          <Col md={4} style={{ backgroundColor: "#e4e4e4" }}>
+            <Row>
+              <Col>
+                Item
+                <Form.Select ref={itemRef} onChange={productChange}>
+                  {products.map((p) => (
+                    <option key={p.code} value={p.code}>
+                      {p.name}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Label>Price Per Unit</Form.Label>
+                <Form.Control type="number" value={ppu} readOnly />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Label>Quantity</Form.Label>
+                <Form.Control type="number" ref={qtyRef} defaultValue={1} />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Label>Discount</Form.Label>
+                <Form.Control
+                  type="number"
+                  ref={discountRef}
+                  defaultValue={0}
+                />
+              </Col>
+            </Row>
+            <hr />
+            <div className="d-grid gap-2">
+              <Button variant="primary" onClick={addItem}>
+                Add
+              </Button>
+            </div>
+          </Col>
+          <Col md={8}>
+            <QuotationTable
+              data={dataItems}
+              clearDataItems={clearDataItems}
+              deleteByIndex={deleteByIndex}
+            />
+          </Col>
+        </Row>
+      </Container>
+    </Router>
   );
 }
 
