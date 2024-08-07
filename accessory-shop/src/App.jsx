@@ -22,23 +22,25 @@ function App() {
       setSelectedItems([...selectedItems])
       setFilteredSelectedItems([...selectedItems]) 
    } 
-
   const handleAdd = (e) => {
     const pid = pRef.current.value
     const product = productList.find(p => p.id == pid)
-    const q = qRef.current.value
-    selectedItems.push({
-      // id: product.id,
-      // name: product.name,
-      // price: product.price,
-      ...product,
-      qty: q
-    })
-    console.table(selectedItems)
-    setSelectedItems([...selectedItems])
-    setFilteredSelectedItems([...selectedItems])
-  }
+    const q = parseInt(qRef.current.value)
+    const existingItem = selectedItems.find(item => item.id === product.id)
 
+    if (existingItem) {
+      existingItem.qty += q
+    } else {
+      selectedItems.push({
+        ...product,
+        qty: q
+      })
+    }
+
+  console.table(selectedItems)
+  setSelectedItems([...selectedItems])
+  setFilteredSelectedItems([...selectedItems])
+}
   const handleProductChanged = (e) => {
     const pid = e.target.value
     const product = productList.find(p => p.id == pid)
