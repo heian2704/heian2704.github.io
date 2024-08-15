@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { useLocalStorage } from 'react-use';
 import {
   Button, Container, Row, Col,
 } from 'react-bootstrap'; // Import the Button component from the appropriate library
@@ -6,41 +7,52 @@ import {
 import { Form } from 'react-bootstrap';
 import productList from './accessory-proudct.json'
 import DataTable from './component/DataTable';
+import {TotalPriceContext} from './context.jsx';
 
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function App() {
 
   const pRef = useRef()
   const qRef = useRef()
   const [price, setPrice] = useState(productList[0].price)
+  const [totalPrice, setTotalPrice] = useState(0)
 
-  const [selectedItems, setSelectedItems] = useState([])
-  const [filteredSelectedItems, setFilteredSelectedItems] = useState([]) 
+  // TODO change this back to normal array, since it is not a state to be displayed any longer.
+  // const [selectedItems, setSelectedItems] = useState([])
+  const [selectedItems, setSelectedItems, remove] = useLocalStorage("selected-items",[])
+  const [filteredSelectedItems, setFilteredSelectedItems] = useState([...selectedItems])
 
-  const deleteItemByIndex = (index) => { 
-      selectedItems.splice(index, 1) 
-      setSelectedItems([...selectedItems])
-      setFilteredSelectedItems([...selectedItems]) 
-   } 
+  const deleteItemByIndex = (index) => {
+    selectedItems.splice(index, 1)
+    setSelectedItems([...selectedItems])
+    setFilteredSelectedItems([...selectedItems])
+  }
+
+  const filter = (keyword) => {
+    const filteredItems = selectedItems.filter((item) =>
+      item.name.toLowerCase().includes(keyword.toLowerCase())
+    )
+
+    setFilteredSelectedItems(filteredItems)
+  }
+
   const handleAdd = (e) => {
     const pid = pRef.current.value
     const product = productList.find(p => p.id == pid)
-    const q = parseInt(qRef.current.value)
-    const existingItem = selectedItems.find(item => item.id === product.id)
+    const q = qRef.current.value
+    selectedItems.push({
+      // id: product.id,
+      // name: product.name,
+      // price: product.price,
+      ...product,
+      quantity: q
+    })
+    console.table(selectedItems)
+    setSelectedItems([...selectedItems])
+    setFilteredSelectedItems([...selectedItems])
+  }
 
-    if (existingItem) {
-      existingItem.qty += q
-    } else {
-      selectedItems.push({
-        ...product,
-        qty: q
-      })
-    }
-
-  console.table(selectedItems)
-  setSelectedItems([...selectedItems])
-  setFilteredSelectedItems([...selectedItems])
-}
   const handleProductChanged = (e) => {
     const pid = e.target.value
     const product = productList.find(p => p.id == pid)
@@ -49,26 +61,8 @@ function App() {
     setPrice(p)
   }
 
-  const sortAscending = () => {
-    const sortedData = [...selectedItems].sort((a, b) => a.name.localeCompare(b.name));
-    setSelectedItems(sortedData);
-    setFilteredSelectedItems(sortedData);
-  };
-
-  const sortDescending = () => {
-    const sortedData = [...selectedItems].sort((a, b) => b.name.localeCompare(a.name));
-    setSelectedItems(sortedData);
-    setFilteredSelectedItems(sortedData);
-  };
-
-  const search = (keyword) => {
-    setFilteredSelectedItems([
-      ...selectedItems.filter(item => item.name.toLowerCase().includes(keyword.toLowerCase()))
-    ])
-  }
-
   return (
-    <>
+    <TotalPriceContext.Provider value={{totalPrice, setTotalPrice}}>
       <Container>
         <Row>
           <Col xs={2}>
@@ -101,12 +95,15 @@ function App() {
               defaultValue={1} />
           </Col>
         </Row>
-        <Button variant="primary" onClick={handleAdd}>Add</Button>
+        <Button variant="secondary" onClick={handleAdd}>Add</Button>
 
-        <DataTable data={filteredSelectedItems} onDelete={deleteItemByIndex} onSearch={search} onSortAscending={sortAscending}
-        onSortDescending={sortDescending} />
+        <DataTable
+          data={filteredSelectedItems}
+          onDelete={deleteItemByIndex}
+          onFilter={filter} />
       </Container>
-    </>
+      <h1>Total Price: {totalPrice.toFixed(2)}</h1>
+    </TotalPriceContext.Provider>
   )
 
 }
